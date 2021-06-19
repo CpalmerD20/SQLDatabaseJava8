@@ -40,7 +40,15 @@ public class DishesDao {
 
 	public static void updateDish(int dishId, String dishName, String orderDate, String dishComment, double dishPrice,
 			int dishScore) {
-		// TODO Auto-generated method stub
+		try(Connection connection = DbConnection.getConnection()) {
+			String sql = "UPDATE dish SET dish_name = ? WHERE dish_id = ?";
+			try(PreparedStatement statement = connection.prepareStatement(sql)){
+
+				statement.executeUpdate();
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 		
 	}
 

@@ -21,4 +21,16 @@ public class UsersDao {
 		
 	}
 
+
+	public static List<Users> findUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static void createUser(int userId, String firstName, String lastName, String email, String userName,
+			String userBio, String password) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
