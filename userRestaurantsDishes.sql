@@ -35,7 +35,7 @@ create table dish (
   order_date timestamp not null default current_timestamp,
   dish_comment text,
   dish_price decimal(5,2) not null,
-  resta_score tinyint(1) not null,
+  dish_score tinyint(1) not null,
   foreign key (restaurant_id) references restaurant (restaurant_id),
   foreign key (user_id) references user (user_id)
 );
