@@ -19,7 +19,7 @@ create table user (
 
 create table restaurant (
   restaurant_id int primary key auto_increment not null,
-  user_id int not null,
+  user_id int,
   resta_name varchar(50) not null,
   visit_date timestamp not null default current_timestamp,
   resta_score tinyint(1) not null,
@@ -29,8 +29,8 @@ create table restaurant (
   
 create table dish (
   dish_id int primary key auto_increment not null,
-  user_id int not null,
-  restaurant_id int not null,
+  user_id int,
+  restaurant_id int,
   dish_name varchar(50) not null,
   order_date timestamp not null default current_timestamp,
   dish_comment text,

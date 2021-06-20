@@ -27,8 +27,12 @@ public class UsersDao {
 		try(Connection connection = DbConnection.getConnection()) {
 			String sql = "UPDATE user SET username = ? WHERE user_id = ?";
 			try(PreparedStatement statement = connection.prepareStatement(sql)){
-				statement.setString(1, userName);
-				statement.setInt(2, userId);
+				statement.setString(1, firstName);
+				statement.setString(2, lastName);
+				statement.setString(3, email);
+				statement.setString(4, userName);
+				statement.setString(5, userBio);
+				statement.setString(6, password);
 
 				statement.executeUpdate();
 			}

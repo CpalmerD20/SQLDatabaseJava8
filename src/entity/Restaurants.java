@@ -8,8 +8,8 @@ public class Restaurants {
 	private int restaScore;
 	private String restaCity;
 	
-	public Restaurants (int restaId, String restaName, String restaCity, 
-			String visitDate, int restaScore) {
+	public Restaurants (int restaId, String restaName, String visitDate, 
+			int restaScore, String restaCity) {
 		this.restaId = restaId;
 		this.restaCity = restaCity;
 		this.restaName = restaName;

@@ -185,9 +185,9 @@ public class App {
 		System.out.println("You selected update restaurants");
 		int restaId = readIntInput("Enter Restaurant ID: ");
 		String restaName = readStringInput("Enter Restaurant name: ");
-		String restaCity = readStringInput ("Enter City: ");
 		String visitDate = readStringInput ("Enter Date Visited: ");
 		int restaScore = readIntInput("Enter a Restaurant Score (0-9)");
+		String restaCity = readStringInput ("Enter City: ");
 		
 		RestaurantsDao.updateResta(restaId, restaName, restaCity, 
 			visitDate, restaScore);
@@ -199,9 +199,9 @@ public class App {
 		System.out.println("***");
 		System.out.println("You selected add restaurants");
 		String restaName = readStringInput("Enter Restaurant name: ");
-		String restaCity = readStringInput ("Enter City: ");
 		String visitDate = readStringInput ("Enter Date Visited: ");
 		int restaScore = readIntInput("Enter a Restaurant Score (0-9)");
+		String restaCity = readStringInput ("Enter City: ");
 		
 		RestaurantsDao.createResta(restaName, restaCity, 
 			visitDate, restaScore);
@@ -220,9 +220,10 @@ public class App {
 			System.out.println("There is no data!");
 		} else {
 			for(Restaurants resta : restas) {
-				System.out.println(resta.getRestaId() + " Name: " + resta.getRestaName() + " City: " +
-			resta.getRestaCity() + " Date Visited: " + resta.getVisitDate() + " Score: " + 
-						resta.getRestaScore()); 
+				System.out.println("ID: " + resta.getRestaId() + ", Restaurant Name: " 
+			+ resta.getRestaName() + ", City: " + resta.getRestaCity());
+				System.out.println(", Date Visited: " + resta.getVisitDate() + 
+						", Score: " + resta.getRestaScore()); 
 			}
 		}
 	}
@@ -290,6 +291,7 @@ public class App {
 	}
 
 	private void printMenu() {
+		System.out.println();
 		System.out.println("**What would you like to access?**");
 		System.out.println("**1: List All Users");
 		System.out.println("**2: Add a User");

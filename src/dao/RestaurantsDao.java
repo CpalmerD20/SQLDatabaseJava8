@@ -24,7 +24,7 @@ public class RestaurantsDao {
 						String restaCity = rs.getString("resta_city");
 						int restaScore = rs.getInt("resta_score");
 						
-						Restaurants restaurant = new Restaurants(restaId, restaName, visitDate, restaCity, restaScore);
+						Restaurants restaurant = new Restaurants(restaId, restaName, visitDate, restaScore, restaCity);
 						restaurants.add(restaurant);
 					}
 					return restaurants;
@@ -37,12 +37,12 @@ public class RestaurantsDao {
 
 	public static void updateResta(int restaId, String restaName, String restaCity, String visitDate, int restaScore) {
 		try(Connection connection = DbConnection.getConnection()) {
-			String sql = "UPDATE restaurant SET order_date = ?, dish_comment = ?, dish_price = ?, dish_score = ? WHERE resta_id = ?";
+			String sql = "UPDATE restaurant SET resta_name = ?, resta_city = ?, visit_date = ?, resta_score = ? WHERE restaurant_id = ?";
 			try(PreparedStatement statement = connection.prepareStatement(sql)){
 				statement.setString(1, restaName);
-				statement.setString(2, restaCity);
 				statement.setString(3, visitDate);
 				statement.setInt(4, restaScore);
+				statement.setString(2, restaCity);
 				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -53,7 +53,7 @@ public class RestaurantsDao {
 
 	public static void deleteResta(int restaId) {
 		try(Connection connection = DbConnection.getConnection()) {
-			String sql = "DELETE FROM Restaurant WHERE resta_id = ?";
+			String sql = "DELETE FROM Restaurant WHERE restaurant_id = ?";
 			try(PreparedStatement statement = connection.prepareStatement(sql)){
 				statement.setInt(1, restaId);
 				statement.executeUpdate();
@@ -69,9 +69,9 @@ public class RestaurantsDao {
 		try(Connection connection = DbConnection.getConnection()) {
 			try(PreparedStatement statement = connection.prepareStatement(sql)) {
 				statement.setString(1, restaName);
-				statement.setString(2, restaCity);
 				statement.setString(3, visitDate);
 				statement.setInt(4, restaScore);
+				statement.setString(2, restaCity);
 				statement.executeUpdate();
 			}
 		} catch (SQLException e ) {
