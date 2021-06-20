@@ -10,12 +10,44 @@ import entity.Restaurants;
 public class RestaurantsDao {
 
 	public static List<Restaurants> findRestas() {
-		// TODO Auto-generated method stub
-		return null;
+		try(Connection connection = DbConnection.getConnection();) {
+			String sql = "SELECT * FROM restaurant ORDER BY restaurant_id";
+			
+			try(PreparedStatement statement = connection.prepareStatement(sql)) {
+				try(ResultSet rs = statement.executeQuery()) {
+					List<Restaurants> restaurants = new LinkedList<>();
+					
+					while(rs.next()) {
+						int restaId = rs.getInt("restaurant_id");
+						String restaName = rs.getString("resta_name");
+						String visitDate = rs.getString("visit_date");
+						String restaCity = rs.getString("resta_city");
+						int restaScore = rs.getInt("resta_score");
+						
+						Restaurants restaurant = new Restaurants(restaId, restaName, visitDate, restaCity, restaScore);
+						restaurants.add(restaurant);
+					}
+					return restaurants;
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public static void updateResta(int restaId, String restaName, String restaCity, String visitDate, int restaScore) {
-		// TODO Auto-generated method stub
+		try(Connection connection = DbConnection.getConnection()) {
+			String sql = "UPDATE restaurant SET order_date = ?, dish_comment = ?, dish_price = ?, dish_score = ? WHERE resta_id = ?";
+			try(PreparedStatement statement = connection.prepareStatement(sql)){
+				statement.setString(1, restaName);
+				statement.setString(2, restaCity);
+				statement.setString(3, visitDate);
+				statement.setInt(4, restaScore);
+				statement.executeUpdate();
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 		
 	}
 
@@ -39,7 +71,7 @@ public class RestaurantsDao {
 				statement.setString(1, restaName);
 				statement.setString(2, restaCity);
 				statement.setString(3, visitDate);
-				statement.setDouble(4, restaScore);
+				statement.setInt(4, restaScore);
 				statement.executeUpdate();
 			}
 		} catch (SQLException e ) {
