@@ -11,9 +11,9 @@ import entity.Users;
 
 public class App {
 	private Scanner scan = new Scanner(System.in);
-	private UsersDao userDao = new UsersDao();
-	private RestaurantsDao restaDao = new RestaurantsDao();
-	private DishesDao dishDao = new DishesDao();
+//	private UsersDao userDao = new UsersDao();
+//	private RestaurantsDao restaDao = new RestaurantsDao();
+//	private DishesDao dishDao = new DishesDao();
 
 	public static void main(String[] args) {
 		new App().runMenu();	
@@ -139,14 +139,13 @@ public class App {
 	private void createDishes() {
 		System.out.println("***");
 		System.out.println("You selected add a dish");
-		int dishId = readIntInput("Enter Dish ID: ");
 		String dishName = readStringInput("Enter name: ");
 		String orderDate = readStringInput ("Enter Date Ordered: ");
 		String dishComment = readStringInput ("Enter a Comment: ");
 		double dishPrice = readDoubleInput ("Enter the Dish Price: ");
 		int dishScore = readIntInput("Enter a Dish Score (0-9)");
 		
-		DishesDao.createDish(dishId, dishName, orderDate, 
+		DishesDao.createDish(dishName, orderDate, 
 			dishComment, dishPrice, dishScore);
 		System.out.println("Dish has been added");
 		
@@ -199,13 +198,12 @@ public class App {
 	private void createResta() {
 		System.out.println("***");
 		System.out.println("You selected add restaurants");
-		int restaId = readIntInput("Enter Restaurant ID: ");
 		String restaName = readStringInput("Enter Restaurant name: ");
 		String restaCity = readStringInput ("Enter City: ");
 		String visitDate = readStringInput ("Enter Date Visited: ");
 		int restaScore = readIntInput("Enter a Restaurant Score (0-9)");
 		
-		RestaurantsDao.createResta(restaId, restaName, restaCity, 
+		RestaurantsDao.createResta(restaName, restaCity, 
 			visitDate, restaScore);
 		System.out.println("Restaurant has been added");
 		
@@ -213,12 +211,12 @@ public class App {
 
 	private void readResta() {
 		System.out.println("You selected List Restaurants...");
-		List<Restaurants> resta = RestaurantsDao.findRestas();
+		List<Restaurants> restas = RestaurantsDao.findRestas();
 		
 		System.out.println("***");
 		System.out.println("Here are the Restaurants: ");
 		
-		if(resta.isEmpty()) {
+		if(restas.isEmpty()) {
 			System.out.println("There is no data!");
 		} else {
 			for(Restaurants resta : restas) {
@@ -259,7 +257,6 @@ public class App {
 	private void createUsers() {
 		System.out.println("***");
 		System.out.println("You selected add a user");
-		int userId = readIntInput("Enter User ID: ");
 		String firstName = readStringInput("Enter first name: ");
 		String lastName = readStringInput("Enter last name: ");
 		String email = readStringInput ("Enter email: ");
@@ -267,8 +264,7 @@ public class App {
 		String userBio = readStringInput("Enter Bio: ");
 		String password = readStringInput("Enter password: ");
 		
-		UsersDao.createUser(userId, firstName, lastName, email, userName,  
-			userBio, password);
+		UsersDao.createUser(firstName, lastName, email, userName, userBio, password);
 		System.out.println("user has been added");
 
 		
@@ -276,12 +272,12 @@ public class App {
 
 	private void readUsers() {
 		System.out.println("You selected List Restaurants...");
-		List<Users> user = UsersDao.findUsers();
+		List<Users> users = UsersDao.findUsers();
 		
 		System.out.println("***");
 		System.out.println("Here are the Users: ");
 		
-		if(user.isEmpty()) {
+		if(users.isEmpty()) {
 			System.out.println("There is no data!");
 		} else {
 			for(Users user : users) {

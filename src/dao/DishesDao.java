@@ -41,9 +41,13 @@ public class DishesDao {
 	public static void updateDish(int dishId, String dishName, String orderDate, String dishComment, double dishPrice,
 			int dishScore) {
 		try(Connection connection = DbConnection.getConnection()) {
-			String sql = "UPDATE dish SET dish_name = ? WHERE dish_id = ?";
+			String sql = "UPDATE dish SET dish_name = ?, order_date = ?, dish_comment = ?, dish_price = ?, dish_score = ? WHERE dish_id = ?";
 			try(PreparedStatement statement = connection.prepareStatement(sql)){
-
+				statement.setString(1, dishName);
+				statement.setString(2, orderDate);
+				statement.setString(3, dishComment);
+				statement.setDouble(4, dishPrice);
+				statement.setInt(5, dishScore);
 				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -53,9 +57,21 @@ public class DishesDao {
 	}
 
 
-	public static void createDish(int dishId, String dishName, String orderDate, String dishComment, double dishPrice,
+	public static void createDish(String dishName, String orderDate, String dishComment, double dishPrice,
 			int dishScore) {
-		// TODO Auto-generated method stub
+		String sql = "INSERT INTO dish (dish_name, order_date, dish_comment, dish_price, dish_score) VALUES (?, ?, ?, ?, ?)";
+		try(Connection connection = DbConnection.getConnection()) {
+			try(PreparedStatement statement = connection.prepareStatement(sql)) {
+				statement.setString(1, dishName);
+				statement.setString(2, orderDate);
+				statement.setString(3, dishComment);
+				statement.setDouble(4, dishPrice);
+				statement.setInt(5, dishScore);
+				statement.executeUpdate();
+			}
+		} catch (SQLException e ) {
+			throw new RuntimeException(e);
+		}
 		
 	}
 

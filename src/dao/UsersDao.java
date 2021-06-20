@@ -11,25 +11,79 @@ import entity.Users;
 public class UsersDao {
 
 	public static void deleteUser(int userId) {
-		// TODO Auto-generated method stub
-		
+		try(Connection connection = DbConnection.getConnection()) {
+			String sql = "DELETE FROM user WHERE user_id = ?";
+			try(PreparedStatement statement = connection.prepareStatement(sql)){
+				statement.setInt(1, userId);
+				statement.executeUpdate();
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public static void updateUser(int userId, String firstName, String lastName, String email, String userName, String userBio,
 			String password) {
-		// TODO Auto-generated method stub
+		try(Connection connection = DbConnection.getConnection()) {
+			String sql = "UPDATE user SET username = ? WHERE user_id = ?";
+			try(PreparedStatement statement = connection.prepareStatement(sql)){
+				statement.setString(1, userName);
+				statement.setInt(2, userId);
+
+				statement.executeUpdate();
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 		
 	}
 
 
 	public static List<Users> findUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		try(Connection connection = DbConnection.getConnection();) {
+			String sql = "SELECT * FROM user ORDER BY user_id";
+			
+			try(PreparedStatement statement = connection.prepareStatement(sql)) {
+				try(ResultSet rs = statement.executeQuery()) {
+					List<Users> users = new LinkedList<>();
+					
+					while(rs.next()) {
+						int userId = rs.getInt("user_id");
+						String firstName = rs.getString("first_name");
+						String lastName = rs.getString("last_name");
+						String email = rs.getString("email");
+						String userName = rs.getString("username");
+						String userBio = rs.getString("user_bio");
+						String password = rs.getString("password");
+						
+						Users user = new Users(userId, firstName, lastName, email, userName, userBio, password);
+						users.add(user);
+					}
+					
+					return users;
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	public static void createUser(int userId, String firstName, String lastName, String email, String userName,
+	public static void createUser(String firstName, String lastName, String email, String userName,
 			String userBio, String password) {
-		// TODO Auto-generated method stub
+		String sql = "INSERT INTO user (first_name, last_name, email, username, user_bio, password) VALUES (?, ?, ?, ?, ?, ?)";
+		try(Connection connection = DbConnection.getConnection()) {
+			try(PreparedStatement statement = connection.prepareStatement(sql)) {
+				statement.setString(1, firstName);
+				statement.setString(2, lastName);
+				statement.setString(3, email);
+				statement.setString(4, userName);
+				statement.setString(5, userBio);
+				statement.setString(6, password);
+				statement.executeUpdate();
+			}
+		} catch (SQLException e ) {
+			throw new RuntimeException(e);
+		}
 		
 	}
 
