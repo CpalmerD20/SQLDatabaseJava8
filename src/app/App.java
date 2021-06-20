@@ -152,7 +152,7 @@ public class App {
 	}
 
 	private void readDishes() {
-		System.out.println("You selected List Dishes...");
+		System.out.println("You selected list Dishes...");
 		List<Dishes> dishes = DishesDao.findDishes();
 		
 		System.out.println("***");
@@ -172,7 +172,7 @@ public class App {
 
 	private void deleteResta() {
 		System.out.println("****");
-		System.out.println("You selected delete dishes");
+		System.out.println("You selected delete restaurants");
 		int restaId = readIntInput("Enter Restaurant ID: ");
 		
 		RestaurantsDao.deleteResta(restaId);
@@ -272,7 +272,7 @@ public class App {
 	}
 
 	private void readUsers() {
-		System.out.println("You selected List Restaurants...");
+		System.out.println("You selected List users...");
 		List<Users> users = UsersDao.findUsers();
 		
 		System.out.println("***");
