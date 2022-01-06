@@ -1,2 +1,2 @@
 # Week6SQLDatabaseProject
-Group Project Creating a Relational Database
+Relational Database with MySQL and Java
